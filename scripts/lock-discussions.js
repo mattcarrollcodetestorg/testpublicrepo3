@@ -1,4 +1,5 @@
 import { Octokit } from "@octokit/rest";
+import fetch from "node-fetch";
 
 // Helper function to delay execution
 function delay(ms) {
@@ -6,7 +7,10 @@ function delay(ms) {
 }
 
 async function lockDiscussions() {
-  const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
+    const octokit = new Octokit({
+    auth: process.env.GITHUB_TOKEN,
+    request: { fetch }
+  });
   const owner = process.env.GITHUB_REPOSITORY_OWNER;
   const repo = process.env.GITHUB_REPOSITORY.split('/')[1];
 
