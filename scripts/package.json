@@ -4,6 +4,9 @@
   "description": "A script to lock all discussions in a GitHub repository",
   "main": "lock-discussions.js",
   "type": "module",
+  "engines": {
+    "node": "22"
+  },
   "scripts": {
     "lock": "node lock-discussions.js"
   },
