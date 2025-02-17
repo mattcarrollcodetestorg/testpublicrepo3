@@ -4,23 +4,28 @@ on:
   schedule:
     - cron: '*/5 * * * *'  # Runs every 5 minutes
   workflow_dispatch:        # Allows manual triggering
+
 jobs:
   lock-discussions:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '16'
-      - name: Change directory to scripts
-        run: cd scripts
+
       - name: Install dependencies
         run: npm install
+        working-directory: scripts
+
       - name: Lock discussions
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: node lock-discussions.js
+        working-directory: scripts
