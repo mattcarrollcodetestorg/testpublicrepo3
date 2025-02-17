@@ -2,12 +2,13 @@
   "name": "lock-discussions",
   "version": "1.0.0",
   "description": "A script to lock all discussions in a GitHub repository",
-  "main": "scripts/lock-discussions.js",
+  "main": "lock-discussions.js",
   "type": "module",
   "scripts": {
-    "lock": "node scripts/lock-discussions.js"
+    "lock": "node lock-discussions.js"
   },
   "dependencies": {
-    "@octokit/rest": "^20.0.0"
+    "@octokit/rest": "20.1.0",
+    "node-fetch": "3.3.2"
   }
 }
