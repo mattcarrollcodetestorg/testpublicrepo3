@@ -1,21 +1,22 @@
-name: 'Lock Threads'
+name: Lock Discussions
 on:
   schedule:
     - cron: '*/5 * * * *'
-  workflow_dispatch:
-permissions:
-  issues: write
-  pull-requests: write
-  discussions: write
-concurrency:
-  group: lock-threads
 jobs:
-  action:
+  lock-discussions:
     runs-on: ubuntu-latest
     steps:
-      - uses: dessant/lock-threads@v5
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          issue-inactive-days: '0'
-          pr-inactive-days: '0'
-          discussion-inactive-days: '0'
+          node-version: '16'
+      - name: Install dependencies
+        run: npm install @octokit/rest
+      - name: Lock discussions
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: node lock-discussions.js
