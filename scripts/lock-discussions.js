@@ -1,4 +1,4 @@
-const { Octokit } = require("@octokit/rest");
+import { Octokit } from "@octokit/rest";
 // Helper function to delay execution
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
