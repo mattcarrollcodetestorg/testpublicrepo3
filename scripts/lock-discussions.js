@@ -1,10 +1,10 @@
 import { Octokit } from "@octokit/rest";
-// Helper function to delay execution
-function delay(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+import fetch from "node-fetch";
 async function lockDiscussions() {
-  const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
+  const octokit = new Octokit({
+    auth: process.env.GITHUB_TOKEN,
+    request: { fetch }
+  });
   const owner = process.env.GITHUB_REPOSITORY_OWNER;
   const repo = process.env.GITHUB_REPOSITORY.split('/')[1];
   try {
@@ -32,5 +32,9 @@ async function lockDiscussions() {
   } catch (error) {
     console.error(`Error locking discussions: ${error.message}`);
   }
+}
+// Helper function to delay execution
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 lockDiscussions();
